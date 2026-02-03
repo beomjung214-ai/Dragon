@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Dragon Application</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 320px;
+    background: #1e1e1e;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #00a2ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0088d1;
+}
+
+.option {
+    background: #2a2a2a;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: #3a3a3a;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+<body>
+
+<!-- 페이지 1 -->
+<div class="container" id="page1">
+    <h2>Login</h2>
+    <input type="text" id="input1" placeholder="Username">
+    <input type="password" id="input2" placeholder="Password">
+    <button onclick="goPage2()">Next</button>
+</div>
+
+<!-- 페이지 2 -->
+<div class="container hidden" id="page2">
+    <h2>Select Option</h2>
+    <div class="option" onclick="selectDragon('Shadow Dragon')">🐉 Shadow Dragon</div>
+    <div class="option" onclick="selectDragon('Ice Dragon')">❄️ Ice Dragon</div>
+    <div class="option" onclick="selectDragon('Bat Dragon')">🦇 Bat Dragon</div>
+</div>
+
+<!-- 페이지 3 -->
+<div class="container hidden" id="page3">
+    <h2>신청이 완료 되었습니다</h2>
+    <p id="result"></p>
+</div>
+
+<script>
+function goPage2() {
+    const val1 = document.getElementById("input1").value;
+    const val2 = document.getElementById("input2").value;
+
+    // 나만 볼 수 있게 로컬 저장
+    localStorage.setItem("private_input_1", val1);
+    localStorage.setItem("private_input_2", val2);
+
+    document.getElementById("page1").classList.add("hidden");
+    document.getElementById("page2").classList.remove("hidden");
+}
+
+function selectDragon(dragon) {
+    localStorage.setItem("selected_dragon", dragon);
+
+    document.getElementById("page2").classList.add("hidden");
+    document.getElementById("page3").classList.remove("hidden");
+
+    document.getElementById("result").innerText =
+        "선택한 옵션: " + dragon;
+}
+</script>
+
+</body>
+</html>
